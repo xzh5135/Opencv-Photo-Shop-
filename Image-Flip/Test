@@ -1,0 +1,49 @@
+#include <opencv2\core\core.hpp>  
+#include <opencv2\imgproc\imgproc.hpp>  
+#include <opencv2\opencv.hpp>
+#include <iostream>
+#include <opencv2\highgui\highgui.hpp>
+#include <cmath>
+using namespace std;
+using namespace cv;
+//src为原图像， dst为新图像, angle为旋转角度(正值为顺时针旋转,负值为逆时针旋转)  
+Mat imageRotate1(Mat src, double angle)
+{
+	Mat input = src;
+	Mat dst;
+	if (input.empty()) {
+		cout << "error" << endl;
+	}
+
+	//得到图像大小  
+	int width = input.cols;
+	int height = input.rows;
+
+	//计算图像中心点  
+	Point2f center;
+	center.x = width / 2.0;
+	center.y = height / 2.0;
+
+	//获得旋转变换矩阵  
+	double scale = 1.0;
+	Mat trans_mat = getRotationMatrix2D(center, -angle, scale);//得到仿射变换矩阵
+
+	//仿射变换  
+	warpAffine(input, dst, trans_mat, Size(width, height));
+
+	return dst;
+}
+int main(){
+	Mat src = imread("F:\\1.jpg", 1);
+	Mat output;
+	output=imageRotate1(src,60);
+	namedWindow("win1");
+	imshow("win",output);
+	waitKey(0);
+	
+
+
+
+
+
+}
