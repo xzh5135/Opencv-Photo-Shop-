@@ -23,12 +23,16 @@ Mat imageRotate1(Mat src, double angle)
 	Point2f center;
 	center.x = width / 2.0;
 	center.y = height / 2.0;
-
+	cout << center.x << endl;
+	cout << center.y << endl;
+	cout << center << endl;
 	//获得旋转变换矩阵  
 	double scale = 1.0;
 	Mat trans_mat = getRotationMatrix2D(center, -angle, scale);//得到仿射变换矩阵  
-	                                                           //得到的trans_mat只是一个中心点的矩阵
+	                                                           //得到的trans_mat是一个2*3矩阵
+	                                                           //前两列是变换矩阵，最后一列是b1,b2这么一个线性变换的参数
 
+	cout << trans_mat << endl;
 
 	//计算新图像大小  
 	double angle1 = angle  * CV_PI / 180.;
