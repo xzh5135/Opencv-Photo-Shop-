@@ -31,7 +31,7 @@ Mat imageRotate1(Mat src, double angle)
 	Mat trans_mat = getRotationMatrix2D(center, -angle, scale);//得到仿射变换矩阵  
 	                                                           //得到的trans_mat是一个2*3矩阵
 	                                                           //前两列是变换矩阵，最后一列是b1,b2这么一个线性变换的参数
-
+	                                                           //知识点可以在CSDN中opencv基础知识中寻找
 	cout << trans_mat << endl;
 
 	//计算新图像大小  
@@ -46,8 +46,8 @@ Mat imageRotate1(Mat src, double angle)
 	trans_mat.at<double>(1, 2) += cvRound((out_height - height) / 2);
 	
 	//仿射变换  
-	warpAffine(input, dst, trans_mat, Size(out_width, out_height));
-
+	warpAffine(input, dst, trans_mat, Size(out_width, out_height));   //要求trans_mat必须是2*3矩阵，其他还有一些参数
+	                                                                  //可以在VS中勾选函数，查看定义
 
 	//仿射后图像中心未变，需要重新确定
 
